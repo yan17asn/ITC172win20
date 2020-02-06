@@ -2,13 +2,22 @@
 {% block content %}
 <table class="table">
     <tr>
-        <th>Name</th>
+        <th>Title</th>
+        <th>Type</th>
+        <th>URL</th>
+        <th>Date</th>
+        <th>User</th>
         <th>Description</th>
+
     </tr>
 {% for r in resource_list %}
 
 <tr>
 <td>{{r.resourcename}}</td>
+<td>{{r.resourcetype}}</td>
+<td>{{r.url}}</td>
+<td>{{r.dateentered}}</td>
+<td>{{r.userid}}</td>
 <td>{{r.description}}</td>
 </tr>
 {% endfor %}
