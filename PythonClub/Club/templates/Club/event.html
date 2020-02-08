@@ -8,12 +8,12 @@
         <th>Location</th>
         
     </tr>
-{% for m in meeting_list %}
+{% for e in event_list %}
 <tr>
-<td><a href="{% url 'meetingdetail' id=m.id %}">{{m.meetingtitle}}</a></td>
-<td>{{m.meetingdate}}</td>
-<td>{{m.meetingtime}}</td>
-<td>{{m.location}}</td>
+<td><a href="{% url 'eventdetail' id=e.id %}">{{e.eventtitle}}</a></td>
+<td>{{e.date}}</td>
+<td>{{e.time}}</td>
+<td>{{e.location}}</td>
 
 </tr>
 {% endfor %}
