@@ -8,4 +8,6 @@ urlpatterns=[
     path('getEvent/', views.getEvent, name="event"),
     path('getmeetingDetail/<int:id>', views.meetingDetails, name="meetingdetail"),
     path('geteventDetail/<int:id>', views.eventDetails, name="eventdetail"),
+    path('newResource/',views.newResource,name="newresource"),
+    path('newMeeting/',views.newMeeting,name="newmeeting"),
 ]
