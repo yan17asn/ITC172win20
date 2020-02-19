@@ -142,4 +142,37 @@ class DetailPageTest(TestCase):
         response = self.client.get(reverse('meetingdetail', args=(self.meet.id,)))
         self.assertEqual(response.status_code, 200)
 
+class New_Resource_authentication_test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+        self.resource = Resource(resourcename='Python resource 001', resourcetype='PDF',
+       description='Python example source code')
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newresource'))
+        self.assertRedirects(response, '/accounts/login/?next=/Club/newResource/')
+
+    def test_Logged_in_uses_correct_template(self):
+        login=self.client.login(username='testuser1', password='P@ssw0rd1')
+        response=self.client.get(reverse('newresource'))
+        self.assertEqual(str(response.context['user']), 'testuser1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'Club/newResource.html')
+
+class New_Meeting_authentication_test(TestCase):
+    def setUp(self):
+        self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+        self.meet = Meeting.objects.create(meetingtitle='Python Introduction',meetingdate='2020-02-12',meetingtime='06:00',location='Seattle Central',
+       agenda='Python meeting agenda 02122020')
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newmeeting'))
+        self.assertRedirects(response, '/accounts/login/?next=/Club/newMeeting/')
+
+    def test_Logged_in_uses_correct_template(self):
+        login=self.client.login(username='testuser1', password='P@ssw0rd1')
+        response=self.client.get(reverse('newmeeting'))
+        self.assertEqual(str(response.context['user']), 'testuser1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'Club/newMeeting.html')
 
