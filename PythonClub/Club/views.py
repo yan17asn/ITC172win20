@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Meeting, MeetingMinutes, Resource, Event
 from .forms import ResourceForm,MeetingForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -52,6 +53,7 @@ def eventDetails(request,id):
     }
     return render(request, 'Club/eventDetail.html', context=context)
 
+@login_required
 def newResource(request):
     form=ResourceForm
     if request.method=='POST':
@@ -64,6 +66,7 @@ def newResource(request):
         form=ResourceForm()
     return render(request,'Club/newResource.html',{'form':form})
 
+@login_required
 def newMeeting(request):
     form=MeetingForm
     if request.method=='POST':
@@ -75,3 +78,9 @@ def newMeeting(request):
     else:
         form=MeetingForm()
     return render(request,'Club/newMeeting.html',{'form':form})
+
+def loginMessage(request):
+    return render(request,'Club/loginMessage.html')
+
+def logoutMessage(request):
+    return render(request,'Club/logoutMessage.html')

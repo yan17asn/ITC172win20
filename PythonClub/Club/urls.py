@@ -10,4 +10,6 @@ urlpatterns=[
     path('geteventDetail/<int:id>', views.eventDetails, name="eventdetail"),
     path('newResource/',views.newResource,name="newresource"),
     path('newMeeting/',views.newMeeting,name="newmeeting"),
+    path('loginMessage/',views.loginMessage,name="loginmessage"),
+    path('logoutMessage/',views.logoutMessage,name="logoutmessage"),
 ]
