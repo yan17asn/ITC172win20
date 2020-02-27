@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from .models import Meeting, MeetingMinutes, Resource, Event
 from django.contrib.auth.models import User
+from .forms import ResourceForm, MeetingForm
 
 # Create your tests here.
 # ==================  Meeting Model ========================
@@ -175,4 +176,46 @@ class New_Meeting_authentication_test(TestCase):
         self.assertEqual(str(response.context['user']), 'testuser1')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'Club/newMeeting.html')
+
+
+# ==================  Form Test ========================
+
+class Resource_Form_Test(TestCase):
+   def test_resourceform_is_valid(self):
+      self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+      form = ResourceForm(data={'resourcename':"Python resource 001",'resourcetype':"PDF",
+      'url':"https://www.python.com",'dateentered':"2020-02-05",'userid':self.test_user,
+      'description':"Python example source code"})
+      self.assertTrue(form.is_valid())
+
+   def test_resourceform_minus_descript(self):
+      self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
+      form = ResourceForm(data={'resourcename':"Python resource 001",'resourcetype':"PDF",
+      'url':"https://www.python.com",'dateentered':"2020-02-05",'userid':self.test_user,})
+      self.assertTrue(form.is_valid())
+      
+
+   def test_resourceform_empty(self):
+      form = ResourceForm(data={'resourcename':""})
+      self.assertFalse(form.is_valid())
+
+
+class Meeting_Form_Test(TestCase):
+   def test_meetingform_is_valid(self):
+      form = MeetingForm(data={'meetingtitle':"Python Introduction",'meetingdate':"2020-02-05",
+      'meetingtime':"09:00",'location':"Seattle Central",'agenda':"Python meeting agenda 02052020"})
+      self.assertTrue(form.is_valid())
+
+   def test_meetingform_minus_agenda(self):
+      form = MeetingForm(data={'meetingtitle':"Python Introduction",'meetingdate':"2020-02-05",
+      'meetingtime':"09:00",'location':"Seattle Central"})
+      self.assertTrue(form.is_valid())
+
+   def test_meetingform_empty(self):
+      form = ResourceForm(data={'meetingtitle':""})
+      self.assertFalse(form.is_valid())
+
+       
+
+      
 
