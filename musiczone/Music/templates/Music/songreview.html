@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table"> 
+    <p><font style="font-size:2em"><i>{{title}}</i></font>- <a href="{% url 'artistsong' id=aid %}">{{artist}}</a></p>
+    <tr>
+        <th>rating</th>
+        <th>reviews</th>
+        <th>postby</th>
+    </tr>
+{% for r in review_list %}
+<tr>
+<td>{{r.rating}}</td>
+<td>{{r.reviews}}</td>
+<td>{{r.postby}}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

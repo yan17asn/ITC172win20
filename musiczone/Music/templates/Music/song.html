@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table"> 
+    <tr>
+        <th>Song title</th>
+        <th>Album</th>
+        <th>Artist</th>
+        <th>Genre</th>
+        <th>Track</th>
+        <th>Length</th>
+    </tr>
+{% for s in song_list %}
+<tr>
+<td><a href="{% url 'songreview' id=s.id %}">{{s.songtitle}}</a></td>
+<td>{{s.album}}</td>
+<td>{{s.artist}}</td>
+<td>{{s.genre}}</td>
+<td>{{s.track}}</td>
+<td>{{s.length}}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

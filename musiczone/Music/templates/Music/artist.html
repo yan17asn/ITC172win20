@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table"> 
+    <tr>
+        <th>name</th>
+        <th>born</th>
+        <th>wiki</th>
+        <th>description</th>
+        
+    </tr>
+{% for a in artist_list %}
+<tr>
+<td><a href="{% url 'artistsong' id=a.id %}">{{a.name}}</a></td>
+<td>{{a.born}}</td>
+<td><a href="{{a.url}}">{{a.url}}</a></td>
+<td>{{a.description}}</td>
+
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
